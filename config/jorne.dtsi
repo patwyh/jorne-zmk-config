@@ -1,5 +1,16 @@
+
+
+#include <dt-bindings/zmk/matrix_transform.h>
+
 / {
-    split_inputs {
+    chosen {
+        /* Override to point to your custom kscan and transform labels */
+        zmk,kscan = &my_kscan;
+        zmk,matrix-transform = &my_transform;
+    };
+
+    
+   split_inputs {
         #address-cells = <1>;
         #size-cells = <0>;
 
@@ -15,3 +26,38 @@
         device = <&glidepoint_split>;
     };
 };
+
+/* Define your custom kscan node (overrides existing) */
+my_kscan: kscan {
+    compatible = "zmk,kscan-gpio-matrix";
+    label = "CUSTOM_KSCAN";
+    wakeup-source;                  /* Recommended for low-power wake */
+    diode-direction = "col2row";    /* Or "row2col" if your hardware uses it */
+
+    /* Example: Override columns (if shared) or rows (per half) */
+    col-gpios = <&gpio0 10 GPIO_ACTIVE_HIGH>,
+                <&gpio0 11 GPIO_ACTIVE_HIGH>,
+                <&gpio0 12 GPIO_ACTIVE_HIGH>,
+                <&gpio0 13 GPIO_ACTIVE_HIGH>,
+                <&gpio0 14 GPIO_ACTIVE_HIGH>;  /* Adjust to your actual pins */
+
+    row-gpios = <&gpio0 15 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
+                <&gpio0 16 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
+                <&gpio0 17 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;  /* Adjust pins */
+};
+
+/* Define your custom matrix transform (required for non-grid layouts) */
+my_transform: my_matrix_transform {
+    compatible = "zmk,matrix-transform";
+    rows = <3>;     /* Number of logical rows in keymap (e.g., 3 for typical Corne/Jorne half) */
+    columns = <6>;  /* Number of logical columns (e.g., 6 for full Jorne with thumbs) */
+
+    /* Map: Array of RC(row, col) where each entry corresponds to a key position in .keymap */
+    /* Order must match your keymap bindings array */
+    map = <
+        RC(0,0) RC(0,1) RC(0,2) RC(0,3) RC(0,4) RC(0,5)   /* Top row */
+        RC(1,0) RC(1,1) RC(1,2) RC(1,3) RC(1,4) RC(1,5)   /* Middle row */
+        RC(2,0) RC(2,1) RC(2,2) RC(2,3) RC(2,4)            /* Bottom row + thumbs; skip unused */
+    >;
+};
+
