@@ -38,5 +38,5 @@
 };
 
 /* Optional: Enable display features and tune power */
-CONFIG_ZMK_DISPLAY=y
-CONFIG_ZMK_DISPLAY_STATUS_SCREEN_CUSTOM=n  /* Use built-in if preferred; default nice!view widget is vertical */
+//CONFIG_ZMK_DISPLAY=y
+//CONFIG_ZMK_DISPLAY_STATUS_SCREEN_CUSTOM=n  /* Use built-in if preferred; default nice!view widget is vertical */
