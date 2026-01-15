@@ -78,6 +78,7 @@
     };
 };
 
+/* 
 &spi0 {
     status = "okay";
     compatible = "nordic,nrf-spim";
@@ -107,3 +108,4 @@
     sleep;
    // no-taps; /* Remove this line if you want tap-to-click enabled */
 };
+*/
