@@ -10,7 +10,7 @@
 //ref https://grok.com/c/0f015a08-e56b-4161-a035-fd4ae34c6a79?rid=a247c598-bc4f-4b68-99a6-8e43b76befae
 /* Define pin control groups for your custom SPI pins */
 &pinctrl {
-    nice_view_spi_default: nice_view_spi_default {
+    spi0_default: spi0_default {
         group1 {
             psels = <NRF_PSEL(SPIM_SCK,  0, 12)>,   /* SCLK = P0.12 */
                     <NRF_PSEL(SPIM_MOSI, 0, 26)>;   /* MOSI = P0.26 */
@@ -18,7 +18,7 @@
         };
     };
 
-    nice_view_spi_sleep: nice_view_spi_sleep {
+    spi0_sleep: spi0_sleep {
         group1 {
             psels = <NRF_PSEL(SPIM_SCK,  0, 12)>,
                     <NRF_PSEL(SPIM_MOSI, 0, 26)>;
@@ -31,8 +31,8 @@
 &spi0 {  /* Use &spi1 (or &spi0 if it's free on left half) */
     status = "okay";
     compatible = "nordic,nrf-spim";
-    pinctrl-0 = <&nice_view_spi_default>;
-    pinctrl-1 = <&nice_view_spi_sleep>;
+    pinctrl-0 = <&spi0_default>;
+    pinctrl-1 = <&spi0_sleep>;
     pinctrl-names = "default", "sleep";
 
     /* nice!view uses ACTIVE_HIGH CS polarity */
