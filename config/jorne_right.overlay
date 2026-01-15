@@ -58,3 +58,22 @@
         device = <&trackball>;
     };
 };
+
+
+//Cirque trackball config
+&pro_micro_spi {
+    status = "okay";
+    cs-gpios = <&gpio1 2 GPIO_ACTIVE_LOW>;
+
+    glidepoint: glidepoint@0 {
+        compatible = "cirque,pinnacle";
+        reg = <0>;
+        spi-max-frequency = <1000000>;
+        status = "okay";
+        dr-gpios = <&gpio0 7 (GPIO_ACTIVE_HIGH)>;
+
+        sensitivity = "4x";
+        sleep;
+        no-taps;
+    };
+};
