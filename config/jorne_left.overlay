@@ -1,3 +1,4 @@
+#include <dt-bindings/zmk/ext_power.h>
 
 / {
     
@@ -5,3 +6,37 @@
         zephyr,display = &display;
     };
 };
+
+//ref https://grok.com/c/0f015a08-e56b-4161-a035-fd4ae34c6a79?rid=a247c598-bc4f-4b68-99a6-8e43b76befae
+/* Define pinctrl groups for your custom SPI pins */
+&pinctrl {
+    nice_view_spi_default: nice_view_spi_default {
+        group1 {
+            psels = <NRF_PSEL(SPIM_SCK,  0, 12)>,   /* SCLK = P0.12 */
+                    <NRF_PSEL(SPIM_MOSI, 0, 26)>;   /* MOSI = P0.26 */
+        };
+    };
+
+    nice_view_spi_sleep: nice_view_spi_sleep {
+        group1 {
+            psels = <NRF_PSEL(SPIM_SCK,  0, 12)>,
+                    <NRF_PSEL(SPIM_MOSI, 0, 26)>;
+            low-power-enable;
+        };
+    };
+};
+
+/* Define the SPI bus specifically labeled &nice_view_spi (required by nice_view shield) */
+&spi1 {  /* Use spi1 if spi0 is already taken by trackball on right; adjust if needed */
+    status = "okay";
+    pinctrl-0 = <&nice_view_spi_default>;
+    pinctrl-1 = <&nice_view_spi_sleep>;
+    pinctrl-names = "default", "sleep";
+    cs-gpios = <&gpio1 4 GPIO_ACTIVE_HIGH>;  /* CS = P1.04, active high for nice!view */
+
+    label = "NICE_VIEW_SPI";
+};
+
+/* Optional: Enable display features and tune power */
+CONFIG_ZMK_DISPLAY=y
+CONFIG_ZMK_DISPLAY_STATUS_SCREEN_CUSTOM=n  /* Use built-in if preferred; default nice!view widget is vertical */
