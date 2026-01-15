@@ -27,15 +27,15 @@
     };
 };
 
-/* Define the SPI bus specifically labeled &nice_view_spi (required by nice_view shield) */
-&spi1 {  /* ← Change to &spi0 if spi0 is unused on left half */
+/* This is the critical part: define the exact label the nice_view shield expects */
+&nice_view_spi: &spi1 {  /* Use &spi1 (or &spi0 if it's free on left half) */
     status = "okay";
     compatible = "nordic,nrf-spim";
     pinctrl-0 = <&nice_view_spi_default>;
     pinctrl-1 = <&nice_view_spi_sleep>;
     pinctrl-names = "default", "sleep";
 
-    /* CS is active HIGH for nice!view */
+    /* nice!view uses ACTIVE_HIGH CS polarity */
     cs-gpios = <&gpio1 4 GPIO_ACTIVE_HIGH>;  /* CS = P1.04 */
 };
 
