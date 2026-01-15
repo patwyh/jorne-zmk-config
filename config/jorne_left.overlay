@@ -28,7 +28,7 @@
 };
 
 /* This is the critical part: define the exact label the nice_view shield expects */
-&nice_view_spi: &spi0 {  /* Use &spi1 (or &spi0 if it's free on left half) */
+&spi0 {  /* Use &spi1 (or &spi0 if it's free on left half) */
     status = "okay";
     compatible = "nordic,nrf-spim";
     pinctrl-0 = <&nice_view_spi_default>;
