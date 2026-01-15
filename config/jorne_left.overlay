@@ -9,16 +9,16 @@
 
 //ref https://grok.com/c/0f015a08-e56b-4161-a035-fd4ae34c6a79?rid=a247c598-bc4f-4b68-99a6-8e43b76befae
 /* Define pin control groups for your custom SPI pins */
+/* Define pinctrl groups for your custom SPI pins */
 &pinctrl {
-    spi0_default: spi0_default {
+    nice_view_spi_default: nice_view_spi_default {
         group1 {
             psels = <NRF_PSEL(SPIM_SCK,  0, 12)>,   /* SCLK = P0.12 */
                     <NRF_PSEL(SPIM_MOSI, 0, 26)>;   /* MOSI = P0.26 */
-                    /* MISO is not required physically for nice!view */
         };
     };
 
-    spi0_sleep: spi0_sleep {
+    nice_view_spi_sleep: nice_view_spi_sleep {
         group1 {
             psels = <NRF_PSEL(SPIM_SCK,  0, 12)>,
                     <NRF_PSEL(SPIM_MOSI, 0, 26)>;
@@ -27,16 +27,15 @@
     };
 };
 
-/* This is the critical part: define the exact label the nice_view shield expects */
-&spi0 {  /* Use &spi1 (or &spi0 if it's free on left half) */
+/* Define the SPI bus specifically labeled &nice_view_spi (required by nice_view shield) */
+&spi1 {  /* Use spi1 if spi0 is already taken by trackball on right; adjust if needed */
     status = "okay";
-    compatible = "nordic,nrf-spim";
-    pinctrl-0 = <&spi0_default>;
-    pinctrl-1 = <&spi0_sleep>;
+    pinctrl-0 = <&nice_view_spi_default>;
+    pinctrl-1 = <&nice_view_spi_sleep>;
     pinctrl-names = "default", "sleep";
+    cs-gpios = <&gpio1 4 GPIO_ACTIVE_HIGH>;  /* CS = P1.04, active high for nice!view */
 
-    /* nice!view uses ACTIVE_HIGH CS polarity */
-    cs-gpios = <&gpio1 4 GPIO_ACTIVE_HIGH>;  /* CS = P1.04 */
+    label = "NICE_VIEW_SPI";
 };
 
 /* Optional: Enable display features and tune power */
