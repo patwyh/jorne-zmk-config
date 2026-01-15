@@ -14,6 +14,6 @@
 ---
 include:
   - board: nrfmicro_13
-    shield: jorne_left nice_view
+    shield: jorne_left
   - board: nrfmicro_13
     shield: jorne_right
