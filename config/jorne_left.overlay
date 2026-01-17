@@ -30,6 +30,7 @@
 /* Define the SPI bus specifically labeled &nice_view_spi (required by nice_view shield) */
 &nice_view_spi  {  /* Use spi1 if spi0 is already taken by trackball on right; adjust if needed */
     status = "okay";
+    compatible = "nordic,nrf-spim";
     pinctrl-0 = <&nice_view_spi_default>;
     pinctrl-1 = <&nice_view_spi_sleep>;
     pinctrl-names = "default", "sleep";
