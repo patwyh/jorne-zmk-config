@@ -28,14 +28,12 @@
 };
 
 /* Define the SPI bus specifically labeled &nice_view_spi (required by nice_view shield) */
-&spi1 {  /* Use spi1 if spi0 is already taken by trackball on right; adjust if needed */
+&nice_view_spi  {  /* Use spi1 if spi0 is already taken by trackball on right; adjust if needed */
     status = "okay";
     pinctrl-0 = <&nice_view_spi_default>;
     pinctrl-1 = <&nice_view_spi_sleep>;
     pinctrl-names = "default", "sleep";
     cs-gpios = <&gpio1 4 GPIO_ACTIVE_HIGH>;  /* CS = P1.04, active high for nice!view */
-
-    label = "NICE_VIEW_SPI";
 };
 
 /* Optional: Enable display features and tune power */
