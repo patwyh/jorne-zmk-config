@@ -35,15 +35,15 @@ my_kscan: kscan {
     diode-direction = "col2row";    /* Or "row2col" if your hardware uses it */
 
     /* Example: Override columns (if shared) or rows (per half) */
-    col-gpios = <&gpio0 10 GPIO_ACTIVE_HIGH>,
-                <&gpio0 11 GPIO_ACTIVE_HIGH>,
-                <&gpio0 12 GPIO_ACTIVE_HIGH>,
-                <&gpio0 13 GPIO_ACTIVE_HIGH>,
-                <&gpio0 14 GPIO_ACTIVE_HIGH>;  /* Adjust to your actual pins */
+    col-gpios = <&gpio0 2 GPIO_ACTIVE_HIGH>,
+                <&gpio1 13 GPIO_ACTIVE_HIGH>,
+                <&gpio0 3 GPIO_ACTIVE_HIGH>,
+                <&gpio0 28 GPIO_ACTIVE_HIGH>,
+                <&gpio1 11 GPIO_ACTIVE_HIGH>;  /* Adjust to your actual pins */
 
-    row-gpios = <&gpio0 15 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
-                <&gpio0 16 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
-                <&gpio0 17 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;  /* Adjust pins */
+    row-gpios = <&gpio0 13 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
+                <&gpio0 24 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>,
+                <&gpio0 9 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>;  /* Adjust pins */
 };
 
 /* Define your custom matrix transform (required for non-grid layouts) */
