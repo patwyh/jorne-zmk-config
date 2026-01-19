@@ -16,4 +16,4 @@ include:
   - board: nrfmicro_13
     shield: jorne_left nice_view_adapter nice_view
   - board: nrfmicro_13
-    shield: jorne_right
+    shield: jorne_right nice_view_adapter nice_view
